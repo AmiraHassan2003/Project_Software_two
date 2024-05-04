@@ -67,7 +67,7 @@ public class UserController {
 
         @GetMapping("/get")
         public User getUser(@RequestParam Integer user_id) {
-                return new User();
+                return userService.getUser(user_id);
         }
         
 }
