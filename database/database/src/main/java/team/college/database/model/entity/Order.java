@@ -1,19 +1,13 @@
-package team.college.database.model.entity;
+package team.college.Microservices.database.database.src.main.java.team.college.database.model.entity;
 
-import java.util.List;
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Builder
@@ -32,7 +26,7 @@ public class Order {
         private String date;
         private String address;
         private Double totalCost;
-
+        @JsonIgnore
         @OneToMany(mappedBy = "order")
         public List<OrderProduct> orderProducts;
 }
