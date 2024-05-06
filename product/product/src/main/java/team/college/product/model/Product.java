@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Product {
+
         private Integer id;
         private Integer amount;
         private Double price;
         private String name;
         private String description;
-        private Integer category_id;
+        private Category category;
 }

@@ -2,9 +2,12 @@ package team.college.user.service;
 
 import java.util.List;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import team.college.user.model.User;
+import team.college.user.model.*;
 
 @Service
 public class UserService {
@@ -17,35 +20,41 @@ public class UserService {
                 this.httpHeaders = new org.springframework.http.HttpHeaders();
         }
 
-        @SuppressWarnings("unchecked")
         public List<User> allUsers() {
                 // get request that get all users
-                return restTemplate.getForObject(URL + "all_users", List.class);
-                // return restTemplate.getForEntity(URL + "/all_users", List.class).getBody();
+                ResponseEntity<List<User>> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+                return responseEntity.getBody();
         }
 
-        @SuppressWarnings("unchecked")
-        public List<Integer> userOrders(Integer user_id) {
+
+        public List<Order> userOrders(Integer user_id) {
                 // get request that get all orders of user require user_id
-                return restTemplate.getForObject(URL + user_id + "/orders", List.class);
+                ResponseEntity<List<Order>> responseEntity = restTemplate.exchange(URL + user_id + "/orders", HttpMethod.GET, null, new ParameterizedTypeReference<List<Order>>() {});
+                return responseEntity.getBody();
         }
 
-        public User createUser(User user) {
+        public List<Payment> userPayments(Integer user_id) {
+                // get request that get all orders of user require user_id
+                ResponseEntity<List<Payment>> responseEntity = restTemplate.exchange(URL + user_id + "/payments", HttpMethod.GET, null, new ParameterizedTypeReference<List<Payment>>() {});
+                return responseEntity.getBody();
+        }
+
+        public void createUser(User user) {
                 if (user.getEmail() == null || user.getPassword() == null || user.getName() == null)
                 {
-                        return null;
+                        return;
                 }
                 List<User> users = allUsers();
                 for (User u : users) {
                         if (u.getEmail().equals(user.getEmail()))
                         {
-                                return null;
+                                return;
                         }
                 }
                 // post request that create new user require email, password and name
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<User> request = new org.springframework.http.HttpEntity<>(user, httpHeaders);
-                return restTemplate.postForObject(URL + "create", request, User.class);
+                restTemplate.postForObject(URL + "register", request, Void.class);
         }
 
         public User loginUser(User user) {
@@ -62,9 +71,9 @@ public class UserService {
                                 {
                                         user.setId(u.getId());
                                         user.setName(u.getName());
-                                        user.setOrders_id(u.getOrders_id());
-                                        user.setPayment_id(u.getPayment_id());
-                                        return user;
+                                        user.setOrders(u.getOrders());
+                                        user.setPayments(u.getPayments());
+                                        return u;
                                 }
                                 return null;
                         }

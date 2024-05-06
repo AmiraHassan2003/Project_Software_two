@@ -1,7 +1,5 @@
 package team.college.category.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,14 +22,14 @@ public class CategoryService {
                 if (category.getName() == null) return;
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Category> request = new org.springframework.http.HttpEntity<>(category, httpHeaders);
-                restTemplate.postForObject(URL + "add", request, Category.class);
+                restTemplate.postForObject(URL + "add", request, Void.class);
         }
 
         public void updateCategory(Category category) {
                 if (category.getId() == null) return;
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Category> request = new org.springframework.http.HttpEntity<>(category, httpHeaders);
-                restTemplate.postForObject(URL + "update", request, Category.class);
+                restTemplate.postForObject(URL + "update", request, Void.class);
         }
 
         public void removeCategory(Integer category_id) {
@@ -40,11 +38,10 @@ public class CategoryService {
                 restTemplate.getForObject(builder.toUriString(), Void.class);
         }
 
-        @SuppressWarnings("unchecked")
-        public List<Integer> getCategory(Integer category_id) {
+        public Category getCategory(Integer category_id) {
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "get")
                 .queryParam("category_id", category_id);
-                return restTemplate.getForObject(builder.toUriString(), List.class);
+                return restTemplate.getForObject(builder.toUriString(), Category.class);
         }
 
 

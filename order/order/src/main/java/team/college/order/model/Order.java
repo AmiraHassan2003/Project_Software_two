@@ -1,5 +1,6 @@
 package team.college.order.model;
 
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,11 +12,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @NoArgsConstructor
+
 public class Order {
         private Integer id;
-        private Integer user_id;
+        private User user;
         private String date;
         private String address;
         private Double totalCost;
-        public List<Integer> products_id;
+        public List<OrderProduct> orderProducts;
 }

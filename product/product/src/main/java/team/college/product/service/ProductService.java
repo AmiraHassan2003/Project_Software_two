@@ -18,7 +18,7 @@ public class ProductService {
         }
 
         public void createProduct(Product product) {
-                if (product.getAmount() == null || product.getAmount() < 0 || product.getPrice() == null || product.getPrice() < 0 || product.getCategory_id() == null)
+                if (product.getAmount() == null || product.getAmount() < 0 || product.getPrice() == null || product.getPrice() < 0)
                         return;
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Product> request = new org.springframework.http.HttpEntity<>(product, httpHeaders);

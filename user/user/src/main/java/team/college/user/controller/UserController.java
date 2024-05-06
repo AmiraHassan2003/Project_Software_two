@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import team.college.user.model.User;
+import team.college.user.model.*;
 import team.college.user.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,8 +24,8 @@ public class UserController {
         private UserService userService;
 
         @PostMapping("/register")
-        public User createUser(@RequestBody User user) {
-                return user = userService.createUser(user);
+        public void createUser(@RequestBody User user) {
+                userService.createUser(user);
         }
 
         @PostMapping("/login")
@@ -56,13 +56,13 @@ public class UserController {
         }
 
         @GetMapping("/{user_id}/orders")
-        public List<Integer> all_OrderIds(@PathVariable Integer user_id) {
+        public List<Order> all_OrderIds(@PathVariable Integer user_id) {
                 return userService.userOrders(user_id);
         }
 
         @GetMapping("/{user_id}/payments")
-        public List<Integer> all_PaymentsIds(@PathVariable Integer user_id) {
-                return userService.userOrders(user_id);
+        public List<Payment> all_PaymentsIds(@PathVariable Integer user_id) {
+                return userService.userPayments(user_id);
         }
 
         @GetMapping("/get")

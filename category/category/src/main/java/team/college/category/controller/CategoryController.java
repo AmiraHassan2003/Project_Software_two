@@ -1,6 +1,5 @@
 package team.college.category.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import team.college.category.model.Category;
+import team.college.category.model.*;
 import team.college.category.service.CategoryService;
 
 @RestController
@@ -37,7 +36,7 @@ public class CategoryController {
         }
 
         @GetMapping("/get")
-        public List<Integer> getCategory(@RequestParam Integer category_id) {
+        public Category getCategory(@RequestParam Integer category_id) {
                 return categoryService.getCategory(category_id);
         }
 }

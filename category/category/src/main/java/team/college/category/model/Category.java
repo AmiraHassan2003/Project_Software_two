@@ -1,6 +1,8 @@
 package team.college.category.model;
 
+
 import java.util.List;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +13,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @NoArgsConstructor
+
 public class Category {
         private Integer id;
         private String name;
-        public List<Integer> products_id;
+        public List<Product> products;
 }

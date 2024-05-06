@@ -3,7 +3,7 @@ package team.college.payment.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import team.college.payment.model.Payment;
+import team.college.payment.model.*;
 
 @Service
 public class PaymentService {

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import team.college.payment.model.Payment;
+import team.college.payment.model.*;
 import team.college.payment.service.PaymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;

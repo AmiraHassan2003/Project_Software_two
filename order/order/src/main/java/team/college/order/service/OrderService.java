@@ -1,7 +1,8 @@
 package team.college.order.service;
 
-import java.util.List;
 
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,13 +21,13 @@ public class OrderService {
         }
 
         public void addOrder(Order order) {
-                if (order.getUser_id() == null)
-                {
-                        return;
-                }
+                // if (order.getUser() == null)
+                // {
+                //         return;
+                // }
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Order> request = new org.springframework.http.HttpEntity<>(order, httpHeaders);
-                restTemplate.postForObject(URL + "add", request, Order.class);
+                restTemplate.postForObject(URL + "add", request, Void.class);
         }
 
         public void updateOrder(Order order) {
@@ -36,7 +37,7 @@ public class OrderService {
                 }
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Order> request = new org.springframework.http.HttpEntity<>(order, httpHeaders);
-                restTemplate.postForObject(URL + "update", request, Order.class);
+                restTemplate.postForObject(URL + "update", request, Void.class);
         }
 
         public void removeOrder(Integer order_id) {
@@ -45,10 +46,14 @@ public class OrderService {
                 restTemplate.getForObject(builder.toUriString(), Void.class);
         }
 
-        @SuppressWarnings("unchecked")
-        public List<Integer> getOrder(Integer order_id) {
+        public Order getOrder(Integer order_id) {
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "get")
-                .queryParam("order_id", order_id);
-                return restTemplate.getForObject(builder.toUriString(), List.class);
-        }
+                        .queryParam("order_id", order_id);
+                ResponseEntity<Order> responseEntity = restTemplate.exchange(
+                        builder.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        Order.class);
+                return responseEntity.getBody();
+            }
 }

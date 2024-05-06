@@ -1,6 +1,5 @@
 package team.college.order.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +35,7 @@ public class OrderController {
         }
         
         @GetMapping("/get")
-        public List<Integer> getOrder(@RequestParam Integer order_id) {
+        public Order getOrder(@RequestParam Integer order_id) {
                 return orderService.getOrder(order_id);
         }
 

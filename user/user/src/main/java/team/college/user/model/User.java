@@ -16,6 +16,6 @@ public class User {
         private String name;
         private String email;
         private String password;
-        public List<Integer> orders_id;
-        public List<Integer> payment_id;
+        public List<Order> orders;
+        public List<Payment> payments;
 }
