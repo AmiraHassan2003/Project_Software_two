@@ -16,8 +16,13 @@ public class PaymentService {
                 paymentRepository.save(payment);
         }
 
-        public void remove(Integer payment_id) {
-                paymentRepository.deleteById(payment_id);
+        public Boolean remove(Integer payment_id) {
+                if (paymentRepository.findById(payment_id).isPresent())
+                {
+                        paymentRepository.deleteById(payment_id);
+                        return true;
+                }
+                return false;
         }
         
 }

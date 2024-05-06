@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import team.college.user.model.*;
-import team.college.user.service.UserService;
+import team.college.user.service.UserServiceImp;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -21,21 +21,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
         @Autowired
-        private UserService userService;
+        private UserServiceImp userServiceImp;
 
         @PostMapping("/register")
         public void createUser(@RequestBody User user) {
-                userService.createUser(user);
+                userServiceImp.createUser(user);
         }
 
         @PostMapping("/login")
         public User loginUser(@RequestBody User user) {
-                return userService.loginUser(user);
+                return userServiceImp.loginUser(user);
         }
 
         @PostMapping("/update")
         public User updateUser(@RequestBody User user) {
-                return userService.updateUser(user);
+                return userServiceImp.updateUser(user);
         }
 
         // @GetMapping("/{user_id}/add")
@@ -52,22 +52,22 @@ public class UserController {
 
         @GetMapping("/")
         public List<User> all_Users() {
-                return userService.allUsers();
+                return userServiceImp.allUsers();
         }
 
         @GetMapping("/{user_id}/orders")
         public List<Order> all_OrderIds(@PathVariable Integer user_id) {
-                return userService.userOrders(user_id);
+                return userServiceImp.userOrders(user_id);
         }
 
         @GetMapping("/{user_id}/payments")
         public List<Payment> all_PaymentsIds(@PathVariable Integer user_id) {
-                return userService.userPayments(user_id);
+                return userServiceImp.userPayments(user_id);
         }
 
         @GetMapping("/get")
         public User getUser(@RequestParam Integer user_id) {
-                return userService.getUser(user_id);
+                return userServiceImp.getUser(user_id);
         }
         
 }

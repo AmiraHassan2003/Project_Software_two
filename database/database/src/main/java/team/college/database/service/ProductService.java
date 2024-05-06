@@ -37,12 +37,14 @@ public class ProductService {
                 productRepository.deleteById(product_id);
         }
 
-        public void buyProduct(Integer product_id, Integer order_id, Integer amount) {
+        public Boolean buyProduct(Integer product_id, Integer order_id, Integer amount) {
                 Optional<Product> info = productRepository.findById(product_id);
+                if (!productRepository.findById(product_id).isPresent()) return false;
+                if (!orderRepository.findById(order_id).isPresent()) return false;
                 if (info.isPresent())
                 {
                         if (amount > info.get().getAmount())
-                                ;
+                                return false;
                         else {
                                 info.get().setAmount(info.get().getAmount() - amount);
                                 productRepository.save(info.get());
@@ -51,18 +53,21 @@ public class ProductService {
                                 orderProduct.setOrder(orderRepository.findById(order_id).get());
                                 orderProduct.setProduct(productRepository.findById(product_id).get());
                                 orderProductRepository.save(orderProduct);
+                                return true;
                         }
                 }
+                return false;
         }
 
-        public void cancelProduct(Integer product_id, Integer order_id) {
+        public boolean cancelProduct(Integer product_id, Integer order_id) {
                 List<OrderProduct> orderProducts = orderProductRepository.findAll();
                 for (OrderProduct orderProduct : orderProducts) {
                         if (orderProduct.getOrder().getId() == order_id && orderProduct.getProduct().getId() == product_id)
                         {
                                 orderProductRepository.delete(orderProduct);
-                                return;
+                                return true;
                         }
                 }
+                return false;
         }
 }

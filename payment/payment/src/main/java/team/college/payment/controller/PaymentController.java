@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import team.college.payment.model.*;
-import team.college.payment.service.PaymentService;
+import team.college.payment.service.PaymentServiceImp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +20,15 @@ public class PaymentController {
         // remove payment
 
         @Autowired
-        private PaymentService paymentService;
+        private PaymentServiceImp paymentServiceImp;
         
         @PostMapping("/add")
         public void addPayment(@RequestBody Payment payment) {
-                paymentService.addPayment(payment);
+                paymentServiceImp.addPayment(payment);
         }
 
         @GetMapping("/remove")
         public void removePayment(@RequestParam Integer payment_id) {
-                paymentService.removePayment(payment_id);
+                paymentServiceImp.removePayment(payment_id);
         }
 }

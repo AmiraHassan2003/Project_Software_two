@@ -29,8 +29,8 @@ public class CategoryController {
         }
 
         @GetMapping("remove")
-        public void remove(@RequestParam Integer category_id) {
-                categoryService.remove(category_id);
+        public Boolean remove(@RequestParam Integer category_id) {
+                return categoryService.remove(category_id);
         }
 
         @GetMapping("get")

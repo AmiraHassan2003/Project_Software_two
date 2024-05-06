@@ -10,33 +10,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import team.college.order.model.Order;
-import team.college.order.service.OrderService;
+import team.college.order.service.OrderServiceImp;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 
         @Autowired
-        private OrderService orderService;
+        private OrderServiceImp orderServiceImp;
 
         @PostMapping("/add")
         public void addOrder(@RequestBody Order order) {
-                orderService.addOrder(order);
+                orderServiceImp.addOrder(order);
         }
 
         @PostMapping("/update")
         public void updateOrder(@RequestBody Order order) {
-                orderService.addOrder(order);
+                orderServiceImp.addOrder(order);
         }
         
         @GetMapping("/remove")
         public void removeOrder(@RequestParam Integer order_id) {
-                orderService.removeOrder(order_id);
+                orderServiceImp.removeOrder(order_id);
         }
         
         @GetMapping("/get")
         public Order getOrder(@RequestParam Integer order_id) {
-                return orderService.getOrder(order_id);
+                return orderServiceImp.getOrder(order_id);
         }
 
 }

@@ -21,8 +21,14 @@ public class CategoryService {
                 categoryRepository.save(category);
         }
 
-        public void remove(Integer category_id) {
-                categoryRepository.deleteById(category_id);
+        public Boolean remove(Integer category_id) {
+
+                if (categoryRepository.findById(category_id).isPresent())
+                {
+                        categoryRepository.deleteById(category_id);
+                        return true;
+                }
+                return false;
         }
 
         public Category get(Integer category_id) {

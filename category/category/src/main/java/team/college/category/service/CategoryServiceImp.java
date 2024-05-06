@@ -1,18 +1,20 @@
 package team.college.category.service;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import team.college.category.model.Category;
 
 @Service
-public class CategoryService {
+public class CategoryServiceImp implements CategoryService{
 
     private final String URL = "http://localhost:8080/category/";
     private final org.springframework.web.client.RestTemplate restTemplate;
     private final org.springframework.http.HttpHeaders httpHeaders;
 
-    public CategoryService(org.springframework.web.client.RestTemplate restTemplate) {
+    public CategoryServiceImp(org.springframework.web.client.RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.httpHeaders = new org.springframework.http.HttpHeaders();
     }
@@ -35,13 +37,19 @@ public class CategoryService {
     public void removeCategory(Integer category_id) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "remove")
                 .queryParam("category_id", category_id);
-        restTemplate.getForObject(builder.toUriString(), Void.class);
+        Boolean status = restTemplate.getForObject(builder.toUriString(), Boolean.class);
+        if (!status) {
+            throw new RuntimeErrorException(null);
+        }
     }
 
     public Category getCategory(Integer category_id) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "get")
                 .queryParam("category_id", category_id);
-        return restTemplate.getForObject(builder.toUriString(), Category.class);
+        Category category = restTemplate.getForObject(builder.toUriString(), Category.class);
+        if (category != null)
+            return category;
+        throw new RuntimeErrorException(null);
     }
 
 

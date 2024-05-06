@@ -9,13 +9,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import team.college.order.model.Order;
 
 @Service
-public class OrderService {
+public class OrderServiceImp implements OrderService{
 
         private final String URL = "http://localhost:8080/order/";
         private final org.springframework.web.client.RestTemplate restTemplate;
         private final org.springframework.http.HttpHeaders httpHeaders;
     
-        public OrderService(org.springframework.web.client.RestTemplate restTemplate) {
+        public OrderServiceImp(org.springframework.web.client.RestTemplate restTemplate) {
                 this.restTemplate = restTemplate;
                 this.httpHeaders = new org.springframework.http.HttpHeaders();
         }

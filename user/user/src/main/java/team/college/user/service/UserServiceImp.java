@@ -2,6 +2,8 @@ package team.college.user.service;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,12 @@ import org.springframework.stereotype.Service;
 import team.college.user.model.*;
 
 @Service
-public class UserService {
+public class UserServiceImp implements UserService{
         private final String URL = "http://localhost:8080/user/";
         private final org.springframework.http.HttpHeaders httpHeaders;
         private final org.springframework.web.client.RestTemplate restTemplate;
     
-        public UserService(org.springframework.web.client.RestTemplate restTemplate) {
+        public UserServiceImp(org.springframework.web.client.RestTemplate restTemplate) {
                 this.restTemplate = restTemplate;
                 this.httpHeaders = new org.springframework.http.HttpHeaders();
         }
@@ -61,7 +63,7 @@ public class UserService {
                 // post request that get user information require email & password
                 if (user.getEmail() == null || user.getPassword() == null)
                 {
-                        return null;
+                        throw new RuntimeErrorException(null);
                 }
                 List<User> users = allUsers();
                 for (User u : users) {
@@ -75,10 +77,10 @@ public class UserService {
                                         user.setPayments(u.getPayments());
                                         return u;
                                 }
-                                return null;
+                                throw new RuntimeErrorException(null);
                         }
                 }
-                return null;
+                throw new RuntimeErrorException(null);
         }
 
         public User updateUser(User user) {
@@ -146,6 +148,6 @@ public class UserService {
                                 return u;
                         }
                 }
-                return null;
+                throw new RuntimeErrorException(null);
         }
 }

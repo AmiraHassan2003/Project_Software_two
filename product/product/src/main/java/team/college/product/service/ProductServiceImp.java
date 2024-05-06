@@ -1,18 +1,22 @@
 package team.college.product.service;
 
+import javax.management.RuntimeErrorException;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import team.college.product.model.Product;
 
 @Service
-public class ProductService {
+@Repository
+public class ProductServiceImp implements ProductService{
 
         private final String URL = "http://localhost:8080/product/";
         private final org.springframework.web.client.RestTemplate restTemplate;
         private final org.springframework.http.HttpHeaders httpHeaders;
     
-        public ProductService(org.springframework.web.client.RestTemplate restTemplate) {
+        public ProductServiceImp(org.springframework.web.client.RestTemplate restTemplate) {
                 this.restTemplate = restTemplate;
                 this.httpHeaders = new org.springframework.http.HttpHeaders();
         }
@@ -42,13 +46,21 @@ public class ProductService {
                 .queryParam("product_id", product_id)
                 .queryParam("order_id", order_id)
                 .queryParam("amount", amount);
-                restTemplate.getForObject(builder.toUriString(), Void.class);
+                Boolean status = restTemplate.getForObject(builder.toUriString(), Boolean.class);
+                if (!status) {
+                        throw new RuntimeException("Status is false, operation cannot proceed.");
+                }
         }
 
         public void cancelProduct(Integer product_id, Integer order_id) {
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "cancel")
                 .queryParam("product_id", product_id)
                 .queryParam("order_id", order_id);
-                restTemplate.getForObject(builder.toUriString(), Void.class);
+                Boolean status = restTemplate.getForObject(builder.toUriString(), Boolean.class);
+                if (!status) {
+                        throw new RuntimeException("Status is false, operation cannot proceed.");
+                }
+
+                    
         }
 }

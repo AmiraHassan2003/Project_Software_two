@@ -1,4 +1,4 @@
-package team.college.Microservices.database.database.src.main.java.team.college.database.model.entity;
+package team.college.database.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

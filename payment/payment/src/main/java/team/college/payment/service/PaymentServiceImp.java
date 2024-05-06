@@ -1,18 +1,20 @@
 package team.college.payment.service;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import team.college.payment.model.*;
 
 @Service
-public class PaymentService {
+public class PaymentServiceImp implements PaymentService{
 
         private final String URL = "http://localhost:8080/payment/";
         private final org.springframework.web.client.RestTemplate restTemplate;
         private final org.springframework.http.HttpHeaders httpHeaders;
     
-        public PaymentService(org.springframework.web.client.RestTemplate restTemplate) {
+        public PaymentServiceImp(org.springframework.web.client.RestTemplate restTemplate) {
                 this.restTemplate = restTemplate;
                 this.httpHeaders = new org.springframework.http.HttpHeaders();
         }
@@ -28,6 +30,8 @@ public class PaymentService {
         public void removePayment(Integer payment_id) {
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL + "remove")
                 .queryParam("payment_id", payment_id);
-                restTemplate.getForObject(builder.toUriString(), Void.class);
+                Boolean status = restTemplate.getForObject(builder.toUriString(), Boolean.class);
+                if (!status)
+                        throw new RuntimeErrorException(null);
         }
 }

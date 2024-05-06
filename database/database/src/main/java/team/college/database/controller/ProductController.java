@@ -40,13 +40,14 @@ public class ProductController {
         }
 
         @GetMapping("buy")
-        public void buy(@RequestParam Integer product_id, @RequestParam Integer order_id, @RequestParam Integer amount) {
-                productService.buyProduct(product_id, order_id, amount);
+        public Boolean buy(@RequestParam Integer product_id, @RequestParam Integer order_id, @RequestParam Integer amount) {
+                return productService.buyProduct(product_id, order_id, amount);
         }
 
         @GetMapping("cancel")
-        public void buy(@RequestParam Integer product_id, @RequestParam Integer order_id) {
-                productService.cancelProduct(product_id, order_id);
+        public Boolean buy(@RequestParam Integer product_id, @RequestParam Integer order_id) {
+                return productService.cancelProduct(product_id, order_id);
+
         }
         
 }

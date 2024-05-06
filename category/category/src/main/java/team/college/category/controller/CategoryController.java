@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import team.college.category.model.*;
-import team.college.category.service.CategoryService;
+import team.college.category.service.CategoryServiceImp;
 
 @RestController
 @RequestMapping("/category")
@@ -18,25 +18,25 @@ public class CategoryController {
 
 
         @Autowired
-        private CategoryService categoryService;
+        private CategoryServiceImp categoryServiceImp;
 
         @PostMapping("/add")
         public void addCategory(@RequestBody Category category) {
-                categoryService.addCategory(category);
+                categoryServiceImp.addCategory(category);
         }
         
         @PostMapping("/update")
         public void updateCategory(@RequestBody Category category) {
-                categoryService.addCategory(category);
+                categoryServiceImp.addCategory(category);
         }
 
         @GetMapping("/remove")
         public void removeCategory(@RequestParam Integer category_id) {
-                categoryService.removeCategory(category_id);
+                categoryServiceImp.removeCategory(category_id);
         }
 
         @GetMapping("/get")
         public Category getCategory(@RequestParam Integer category_id) {
-                return categoryService.getCategory(category_id);
+                return categoryServiceImp.getCategory(category_id);
         }
 }
