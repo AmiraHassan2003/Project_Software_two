@@ -1,6 +1,7 @@
 package team.college.database.model.entity;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +29,10 @@ public class User {
         private String email;
         private String password;
 
+        @JsonIgnore
         @OneToMany(mappedBy = "user")
         public List<Order> orders;
+        @JsonIgnore
         @OneToMany(mappedBy = "user")
         public List<Payment> payments;
 }

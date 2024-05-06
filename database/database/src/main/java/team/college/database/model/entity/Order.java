@@ -2,6 +2,7 @@ package team.college.database.model.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Order {
         private String date;
         private String address;
         private Double totalCost;
-
+        @JsonIgnore
         @OneToMany(mappedBy = "order")
         public List<OrderProduct> orderProducts;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import team.college.database.model.entity.*;
 import team.college.database.model.repository.OrderProductRepository;
+import team.college.database.model.repository.OrderRepository;
 import team.college.database.model.repository.ProductRepository;
 
 @Service
@@ -18,6 +19,8 @@ public class ProductService {
         private ProductRepository productRepository;
         @Autowired
         private OrderProductRepository orderProductRepository;
+        @Autowired
+        private OrderRepository orderRepository;
 
 
         public Product create(Product product) {
@@ -43,6 +46,11 @@ public class ProductService {
                         else {
                                 info.get().setAmount(info.get().getAmount() - amount);
                                 productRepository.save(info.get());
+                                OrderProduct orderProduct = new OrderProduct();
+                                orderProduct.setAmount(amount);
+                                orderProduct.setOrder(orderRepository.findById(order_id).get());
+                                orderProduct.setProduct(productRepository.findById(product_id).get());
+                                orderProductRepository.save(orderProduct);
                         }
                 }
         }

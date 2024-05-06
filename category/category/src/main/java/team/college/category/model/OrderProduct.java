@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class OrderProduct {
-
         private Integer id;
         private Order order;
         private Product product;
