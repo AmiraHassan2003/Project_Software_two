@@ -26,7 +26,7 @@ public class OrderController {
 
         @PostMapping("/update")
         public void updateOrder(@RequestBody Order order) {
-                orderServiceImp.addOrder(order);
+                orderServiceImp.updateOrder(order);
         }
         
         @GetMapping("/remove")

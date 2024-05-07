@@ -1,6 +1,5 @@
 package team.college.payment.service;
 
-import org.springframework.web.util.UriComponentsBuilder;
 import team.college.payment.model.Payment;
 
 public interface PaymentService {

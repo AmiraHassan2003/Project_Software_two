@@ -1,8 +1,5 @@
 package team.college.user.service;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import team.college.user.model.Order;
 import team.college.user.model.Payment;
 import team.college.user.model.User;

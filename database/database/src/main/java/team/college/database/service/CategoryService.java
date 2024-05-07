@@ -13,12 +13,21 @@ public class CategoryService {
         private CategoryRepository categoryRepository;
 
 
-        public void add(Category category) {
+        public Boolean add(Category category) {
+                if (category == null) return false;
+                if (category.getId() != null) return false;
+                if (category.getName() == null || category.getName().isEmpty()) return false;
                 categoryRepository.save(category);
+                return true;
         }
 
-        public void update(Category category) {
+        public Boolean update(Category category) {
+                if (category == null) return false;
+                if (category.getName() == null || category.getName().isEmpty()) return false;
+                if (category.getId() == null) return false;
+                if (categoryRepository.findById(category.getId()).isEmpty()) return false;
                 categoryRepository.save(category);
+                return true;
         }
 
         public Boolean remove(Integer category_id) {
@@ -32,6 +41,7 @@ public class CategoryService {
         }
 
         public Category get(Integer category_id) {
+                if (categoryRepository.findById(category_id).isEmpty()) return null;
                 return categoryRepository.findById(category_id).get();
         }
 }

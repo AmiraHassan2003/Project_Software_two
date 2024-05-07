@@ -1,6 +1,6 @@
 package team.college.category.service;
 
-import org.springframework.web.util.UriComponentsBuilder;
+
 import team.college.category.model.Category;
 
 public interface CategoryService {

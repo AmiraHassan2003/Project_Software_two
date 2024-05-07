@@ -27,7 +27,7 @@ public class CategoryController {
         
         @PostMapping("/update")
         public void updateCategory(@RequestBody Category category) {
-                categoryServiceImp.addCategory(category);
+                categoryServiceImp.updateCategory(category);
         }
 
         @GetMapping("/remove")

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import team.college.database.model.entity.*;
+import team.college.database.model.repository.CategoryRepository;
 import team.college.database.model.repository.OrderProductRepository;
 import team.college.database.model.repository.OrderRepository;
 import team.college.database.model.repository.ProductRepository;
@@ -21,20 +22,38 @@ public class ProductService {
         private OrderProductRepository orderProductRepository;
         @Autowired
         private OrderRepository orderRepository;
+        @Autowired
+        private CategoryRepository categoryRepository;
 
 
         public Product create(Product product) {
+                if (product == null) return null;
+                if (product.getName() == null || product.getName().isEmpty()) return null;
+                if (product.getAmount() <= 0) return null;
+                if (product.getId() != null) return null;
+                if (product.getPrice() == null || product.getPrice() <= 0) return null;
+                if (product.getCategory() == null) return null;
+                if (!categoryRepository.findById(product.getCategory().getId()).isPresent()) return null;
                 productRepository.save(product);
                 return product;
         }
 
         public Product update(Product product) {
+                if (product == null) return null;
+                if (product.getName() == null || product.getName().isEmpty()) return null;
+                if (product.getAmount() <= 0) return null;
+                if (product.getId() == null) return null;
+                if (product.getPrice() == null || product.getPrice() <= 0) return null;
+                if (product.getCategory() == null) return null;
+                if (!categoryRepository.findById(product.getCategory().getId()).isPresent()) return null;
                 productRepository.save(product);
                 return product;
         }
 
-        public void removeProduct(Integer product_id) {
-                productRepository.deleteById(product_id);
+        public Boolean removeProduct(Integer product_id) {
+                if (!productRepository.findById(product_id).isPresent()) return false;
+                        productRepository.deleteById(product_id);
+                return true;
         }
 
         public Boolean buyProduct(Integer product_id, Integer order_id, Integer amount) {
@@ -64,6 +83,10 @@ public class ProductService {
                 for (OrderProduct orderProduct : orderProducts) {
                         if (orderProduct.getOrder().getId() == order_id && orderProduct.getProduct().getId() == product_id)
                         {
+                                Product product = productRepository.findById(product_id).get();
+                                if (product == null) return false;
+                                product.setAmount(product.getAmount() + orderProduct.getAmount());
+                                productRepository.save(product);
                                 orderProductRepository.delete(orderProduct);
                                 return true;
                         }

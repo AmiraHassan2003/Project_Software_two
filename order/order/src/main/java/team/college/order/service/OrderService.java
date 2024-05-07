@@ -1,10 +1,7 @@
 package team.college.order.service;
 
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.util.UriComponentsBuilder;
 import team.college.order.model.Order;
-import team.college.order.model.Product;
+
 
 public interface OrderService {
     public void addOrder(Order order);

@@ -1,6 +1,5 @@
 package team.college.product.service;
 
-import org.springframework.web.util.UriComponentsBuilder;
 import team.college.product.model.Product;
 
 public interface ProductService {

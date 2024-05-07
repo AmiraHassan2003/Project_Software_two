@@ -1,6 +1,5 @@
 package team.college.product.service;
 
-import javax.management.RuntimeErrorException;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;

@@ -21,10 +21,10 @@ public class OrderServiceImp implements OrderService{
         }
 
         public void addOrder(Order order) {
-                // if (order.getUser() == null)
-                // {
-                //         return;
-                // }
+                if (order.getUser() == null)
+                {
+                        return;
+                }
                 httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
                 org.springframework.http.HttpEntity<Order> request = new org.springframework.http.HttpEntity<>(order, httpHeaders);
                 restTemplate.postForObject(URL + "add", request, Void.class);
